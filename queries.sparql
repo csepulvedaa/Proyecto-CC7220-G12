@@ -1,0 +1,79 @@
+# Consultas realizadas para la presentación
+
+# Animes con mejor rating
+SELECT ?anime ?rating 
+WHERE {
+    ?id ns1:rating ?rating .?id ns2:name ?anime
+    FILTER(?rating>8)
+}
+
+
+# Anime más votado
+SELECT  ?anime ?members 
+WHERE {
+    ?id ns1:rating ?rating .
+    ?id ns2:name ?anime.
+    ?id ns1:members ?members
+}
+ORDER BY DESC(?members)
+LIMIT 1
+
+
+# Buen anime con más de 100 episodios
+SELECT ?anime ?episodes ?rating
+WHERE {
+    ?id ns1:rating ?rating .
+    ?id ns2:name ?anime.
+    ?id ns1:episodes ?episodes
+    FILTER(?rating>9)
+    FILTER(?episodes> 100)
+}
+
+
+# Animes con más votos
+SELECT ?anime ?rating ?members 
+WHERE {
+    ?id ns1:rating ?rating .
+    ?id ns2:name ?anime.
+    ?id ns1:members ?members
+    FILTER(?rating>8)
+    FILTER(?members > 400000)
+}
+ORDER BY DESC(?rating)
+
+
+# Animes sobrevalorados
+SELECT ?name ?rating ?umrating ((?rating - ?umrating) AS ?valuation)
+WHERE{
+    ?id ns1:rating ?rating .
+    ?id ns1:user_mean_rate ?umrating .
+    ?id ns2:name ?name .
+}
+ORDER BY ?valuation DESC(?rating)
+LIMIT 5
+
+
+# Animes infravalorados
+SELECT ?name ?rating ?umrating ((?umrating - ?rating) AS ?valuation)
+WHERE{
+    ?id ns1:rating ?rating .
+    ?id ns1:user_mean_rate ?umrating .
+    ?id ns2:name ?name .
+}
+ORDER BY ?valuation DESC(?rating)
+LIMIT 5
+
+
+# Mejores animes cortos
+SELECT ?anime ?episodes ?rating
+WHERE {
+    ?id ns1:rating ?rating .
+    ?id ns2:name ?anime.
+    ?id ns1:episodes ?episodes.
+    ?id ns1:type ns1:TV.
+    FILTER(?rating>9) .
+    FILTER(?episodes > 1 )
+    FILTER(?episodes < 50 )
+}
+ORDER BY DESC(?rating)
+
