@@ -3,7 +3,7 @@
 En este repositorio se encuentran los archivos de los que consta este __proyecto__.
 Se trabajó con una base de datos que califica series y peliculas de anime.
 Los archivos son: 
-- Collaboratory: Notebook de Jupyter con el script.
+- Proyecto_LWDD.ipynb: Notebook de Collaboratory con el script.
 - anime.csv : Archivo con información de animes. Contiene la siguientes caracteristicas.  
   - anime_id: numero identificador de la serie.
   - name: el nombre del anime.
